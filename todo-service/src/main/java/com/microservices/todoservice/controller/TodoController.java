@@ -26,6 +26,25 @@ public class TodoController {
         return environment.getProperty("local.server.port", "unknown");
     }
 
+
+
+//    @GetMapping("/health")
+//    public ResponseEntity<Map<String, Object>> health() {
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("status", "UP");
+//        response.put("service", "todo-service");
+//        response.put("port", getInstancePort());
+//        return ResponseEntity.ok(response);
+//    }
+@GetMapping("/status")
+public ResponseEntity<Map<String, Object>> health() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", "UP");
+    response.put("service", "todo-service");
+    response.put("port", getInstancePort());
+    return ResponseEntity.ok(response);
+}
+
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllTodos() {
         List<Todo> todos = todoService.getAllTodos();
@@ -87,12 +106,5 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
-    @GetMapping("/health")
-    public ResponseEntity<Map<String, Object>> health() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("service", "todo-service");
-        response.put("port", getInstancePort());
-        return ResponseEntity.ok(response);
-    }
+
 }
